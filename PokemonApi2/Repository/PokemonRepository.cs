@@ -36,6 +36,12 @@ namespace PokemonApi2.Repository
             return Save();
         }
 
+        public bool DeletePokemon(Pokemon pokemon)
+        {
+            _context.Remove(pokemon);
+            return Save();
+        }
+
         public Pokemon GetPokemon(int Id)
         {
             return _context.Pokemon.Where(p => p.ID == Id).FirstOrDefault();

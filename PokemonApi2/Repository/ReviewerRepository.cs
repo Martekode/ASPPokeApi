@@ -1,0 +1,54 @@
+﻿using PokemonApi2.Data;
+using PokemonApi2.Interfaces;
+using PokemonApi2.Models;
+
+namespace PokemonApi2.Repository
+{
+    public class ReviewerRepository : IReviewerRepository
+    {
+        private readonly DataContext _context;
+
+        public ReviewerRepository(DataContext context)
+        {
+            _context = context;
+        }
+
+        public bool CreateReviewer(Reviewer reviewer)
+        {
+            _context.Add(reviewer);
+            return Save();
+        }
+
+        public Reviewer GetReviewer(int reviewerId)
+        {
+            return _context.Reviewers.Where(r => r.ID == reviewerId).FirstOrDefault();
+        }
+
+        public ICollection<Reviewer> GetReviewers()
+        {
+            return _context.Reviewers.OrderBy(r => r.ID).ToList();
+        }
+
+        public ICollection<Review> GetReviewsByReviewer(int reviewerId)
+        {
+            return _context.Reviews.Where(r => r.Reviewer.ID == reviewerId).ToList();
+        }
+
+        public bool ReviewerExists(int reviewerId)
+        {
+            return _context.Reviewers.Any(r => r.ID == reviewerId);
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
+        }
+
+        public bool UpdateReviewer(Reviewer reviewer)
+        {
+            _context.Update(reviewer);
+            return Save();
+        }
+    }
+}

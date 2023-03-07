@@ -145,7 +145,7 @@ namespace PokemonApi2.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public IActionResult DeleteReviewer(int ownerId)
+        public IActionResult DeleteOwner(int ownerId)
         {
             if (!_ownerRepository.OwnerExists(ownerId))
                 return NotFound();

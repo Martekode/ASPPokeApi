@@ -19,6 +19,12 @@ namespace PokemonApi2.Repository
             return Save();
         }
 
+        public bool DeleteReviewer(Reviewer reviewer)
+        {
+            _context.Remove(reviewer);
+            return Save();
+        }
+
         public Reviewer GetReviewer(int reviewerId)
         {
             return _context.Reviewers.Where(r => r.ID == reviewerId).FirstOrDefault();
